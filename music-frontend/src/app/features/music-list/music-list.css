@@ -1,0 +1,46 @@
+.music-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+}
+
+.music-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.music-table th,
+.music-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.music-table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.music-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.music-table tr:hover {
+    background-color: #ddd;
+}
+
+.delete-btn {
+    background-color: #ff4c4c;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-btn:hover {
+    background-color: #d73737;
+}

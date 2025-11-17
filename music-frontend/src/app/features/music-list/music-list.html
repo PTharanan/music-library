@@ -1,0 +1,26 @@
+<div class="music-container">
+    <h2>Music List</h2>
+    <table class="music-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Listen</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let music of musicList let i = index">
+                <td>{{ music.Title }}</td>
+                <td>
+                    <audio controls #audioPlayer (play)="onPlay(i)">
+                        <source [src]="music.File" type="audio/mpeg" />
+                        Your browser does not support the audio element.
+                    </audio>
+                </td>
+                <td>
+                    <button class="delete-btn" (click)="deleteMusic(music.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
