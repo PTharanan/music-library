@@ -14,8 +14,8 @@ export interface Music_model {
 })
 
 export class Music {
-  // private apiUrl = 'http://10.190.162.37:8000/api/music/';
-  private apiUrl = 'http://127.0.0.1:8000//api/music/';
+  // private apiUrl = 'http://127.0.0.1:8000//api/music/';
+  private apiUrl = 'https://tharanan.pythonanywhere.com//api/music/';
 
   constructor(private http: HttpClient) { }
 
