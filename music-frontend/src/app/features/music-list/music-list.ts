@@ -53,14 +53,27 @@ export class MusicList implements OnInit {
   onFileSelected(event: any) {
     const file = event.target.files[0];
 
-    if (file && file.type.startsWith('audio/')) {
-      this.selectedFile = file;
-    } else {
+    if (!file) return;
+
+    const maxSize = 5 * 1024 * 1024;
+
+    if (!file.type.startsWith('audio/')) {
       alert("Only audio files are allowed!");
-      event.target.value = ""; // Clear input
+      event.target.value = "";
       this.selectedFile = null;
+      return;
     }
+
+    if (file.size > maxSize) {
+      alert("File size must be less than 5MB!");
+      event.target.value = "";
+      this.selectedFile = null;
+      return;
+    }
+
+    this.selectedFile = file;
   }
+
 
 
   uploadMusic(): void {
