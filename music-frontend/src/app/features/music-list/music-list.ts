@@ -24,7 +24,6 @@ export class MusicList implements OnInit {
 
   ngOnInit(): void {
     this.loadMusic();
-    console.log("Hello I'm Tharanan 🙃");
   }
 
   loadMusic(): void {
