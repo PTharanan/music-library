@@ -16,7 +16,8 @@
             </div>
 
             <div class="mb-2">
-                <label for="file" class="block mb-1 font-medium text-gray-500 cursor-pointer ease-in-out active:text-gray-800 active:underline decoration-black">
+                <label for="file"
+                    class="block mb-1 font-medium text-gray-500 cursor-pointer ease-in-out active:text-gray-800 active:underline decoration-black">
                     Choose file
                 </label>
                 <input id="file" type="file" (change)="onFileSelected($event)" accept="audio/*" required
@@ -30,13 +31,23 @@
 
             <button type="submit" class="bg-black hover: text-white font-semibold py-2 px-6 rounded-md 
                transition duration-200 ease-in-out active:scale-95 hover:scale-105">
-                Upload
+                {{ isUploading ? 'Uploading...' : 'Upload' }}
             </button>
         </form>
     </div>
 
     <!-- Music List Grid -->
-    <div *ngIf="musicList && musicList.length > 0; else loading">
+
+    <div *ngIf="isLoading" class="text-center text-gray-800 text-2xl py-10">
+        {{Observeapi}}
+    </div>
+
+    <div *ngIf="!isLoading && musicList.length === 0" class="text-center text-gray-800 text-2xl py-10">
+         📂❌ No music files available.
+    </div>
+
+
+    <div *ngIf="musicList && musicList.length > 0">
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <div *ngFor="let music of musicList; let i = index"
                 class="bg-amber-50 rounded-xl shadow-md p-5 flex flex-col justify-between">
@@ -59,9 +70,4 @@
         </div>
     </div>
 
-    <ng-template #loading>
-        <div class="text-center text-gray-800 text-2xl py-10">
-            Loading...
-        </div>
-    </ng-template>
 </div>

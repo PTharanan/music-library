@@ -17,6 +17,14 @@ export class MusicList implements OnInit {
   newMusicTitle: string = '';
   selectedFile: File | null = null;
 
+  // is file uploading or not
+  isUploading: boolean = false;
+
+  isLoading = true;
+
+  //Observe api
+  Observeapi: string = 'Loading...';
+
   constructor(private musicService: Music) { }
 
   @ViewChildren('audioPlayer') audioPlayers!: QueryList<ElementRef<HTMLAudioElement>>;
@@ -24,11 +32,15 @@ export class MusicList implements OnInit {
 
   ngOnInit(): void {
     this.loadMusic();
+    setTimeout(() => {
+      this.Observeapi = '⭮ Reload the page';
+    }, 5000);
   }
 
   loadMusic(): void {
     this.musicService.getMusicList().subscribe(data => {
       this.musicList = data;
+      this.isLoading = false;
     });
   }
 
@@ -77,7 +89,9 @@ export class MusicList implements OnInit {
 
 
   uploadMusic(): void {
+    this.isUploading = true
     if (!this.newMusicTitle || !this.selectedFile) {
+      this.isUploading = false
       alert('Please provide both title and audio file.');
       return;
     }
@@ -88,12 +102,14 @@ export class MusicList implements OnInit {
 
     this.musicService.uploadMusic(formData).subscribe({
       next: () => {
+        this.isUploading = false;
         alert('Music uploaded successfully!');
         this.newMusicTitle = '';
         this.selectedFile = null;
         this.loadMusic();
       },
       error: (err) => {
+        this.isUploading = false;
         alert('Error uploading music.');
         console.error(err);
       }
