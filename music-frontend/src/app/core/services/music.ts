@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+
 
 export interface Music_model {
   id: number;
@@ -14,8 +16,7 @@ export interface Music_model {
 })
 
 export class Music {
-  // private apiUrl = 'http://127.0.0.1:8000//api/music/';
-  private apiUrl = 'https://tharanan.pythonanywhere.com//api/music/';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
