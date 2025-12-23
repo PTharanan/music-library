@@ -8,7 +8,6 @@ export interface Music_model {
   id: number;
   Title: string;
   File: string;
-  // google_drive_url: string;
 }
 
 @Injectable({
