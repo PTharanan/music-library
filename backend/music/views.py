@@ -9,8 +9,11 @@ class MusicListCreateView(generics.ListCreateAPIView):
     serializer_class = MusicSerializer
 
     def perform_create(self, serializer):
-        file = self.request.FILES.get("File")
+        title = self.request.data.get('Title', '').strip()
+        if Music.objects.filter(Title__iexact=title).exists():
+            raise serializers.ValidationError({"Title": "This song title already exists. Please choose another title."})
 
+        file = self.request.FILES.get("File")
         # Check if file exists
         if not file:
             raise serializers.ValidationError({"File": "Audio file is required"})
