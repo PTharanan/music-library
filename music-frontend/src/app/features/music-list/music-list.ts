@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 export class MusicList implements OnInit {
   musicList: Music_model[] = [];
 
+  // user can upload same file
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   // New properties for upload
@@ -33,8 +34,10 @@ export class MusicList implements OnInit {
 
   ngOnInit(): void {
     this.loadMusic();
+    // After 5s execute
     setTimeout(() => {
-      this.Observeapi = '⭮ Reload the page';
+      // this.Observeapi = '⭮ Reload the page';
+      this.Observeapi = 'Sever not found !';
     }, 5000);
   }
 
@@ -53,6 +56,7 @@ export class MusicList implements OnInit {
     }
   }
 
+  // At a time play one audio
   onPlay(index: number): void {
     if (this.currentlyPlayingIndex !== null && this.currentlyPlayingIndex !== index) {
       const previousAudio = this.audioPlayers.toArray()[this.currentlyPlayingIndex];
@@ -68,7 +72,7 @@ export class MusicList implements OnInit {
 
     if (!file) return;
 
-    const maxSize = 5 * 1024 * 1024;
+    const maxSize = 5 * 1024 * 1024; //5MB 
 
     if (!file.type.startsWith('audio/')) {
       alert("Only audio files are allowed!");
@@ -103,8 +107,7 @@ export class MusicList implements OnInit {
     // Duplicate title check
     const titleExists = this.musicList.some(
       music =>
-        music.Title.toLowerCase().trim() ===
-        this.newMusicTitle.toLowerCase().trim()
+        music.Title.toLowerCase().trim() === this.newMusicTitle.toLowerCase().trim()
     );
 
     if (titleExists) {
