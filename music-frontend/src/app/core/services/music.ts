@@ -8,6 +8,7 @@ export interface Music_model {
   id: number;
   Title: string;
   File: string;
+  Date: string;
 }
 
 @Injectable({
