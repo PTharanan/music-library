@@ -1,8 +1,7 @@
-import { Component, OnInit, QueryList, ViewChildren, ElementRef } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren, ViewChild, ElementRef } from '@angular/core';
 import { Music, Music_model } from '../../core/services/music';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 
 @Component({
   selector: 'app-music-list',
@@ -12,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class MusicList implements OnInit {
   musicList: Music_model[] = [];
+
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   // New properties for upload
   newMusicTitle: string = '';
@@ -88,24 +89,45 @@ export class MusicList implements OnInit {
 
 
 
+
   uploadMusic(): void {
-    this.isUploading = true
+    this.isUploading = true;
+
+    // Title & file check
     if (!this.newMusicTitle || !this.selectedFile) {
-      this.isUploading = false
+      this.isUploading = false;
       alert('Please provide both title and audio file.');
       return;
     }
 
+    // Duplicate title check
+    const titleExists = this.musicList.some(
+      music =>
+        music.Title.toLowerCase().trim() ===
+        this.newMusicTitle.toLowerCase().trim()
+    );
+
+    if (titleExists) {
+      this.isUploading = false;
+      alert('This song title already exists. Please choose another title.');
+      return;
+    }
+
+    // Prepare form data
     const formData = new FormData();
     formData.append('Title', this.newMusicTitle);
-    formData.append('File', this.selectedFile);
+    formData.append('File', this.selectedFile as File);
 
+    // Upload
     this.musicService.uploadMusic(formData).subscribe({
       next: () => {
         this.isUploading = false;
         alert('Music uploaded successfully!');
+
         this.newMusicTitle = '';
         this.selectedFile = null;
+        this.fileInput.nativeElement.value = '';
+
         this.loadMusic();
       },
       error: (err) => {
@@ -115,4 +137,5 @@ export class MusicList implements OnInit {
       }
     });
   }
+
 }
