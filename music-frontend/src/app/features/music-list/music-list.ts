@@ -34,11 +34,11 @@ export class MusicList implements OnInit {
 
   ngOnInit(): void {
     this.loadMusic();
-    // After 5s execute
+    // After 10s execute
     setTimeout(() => {
       // this.Observeapi = '⭮ Reload the page';
       this.Observeapi = 'Sever not found !';
-    }, 5000);
+    }, 10000);
   }
 
   loadMusic(): void {
