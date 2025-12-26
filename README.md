@@ -2,6 +2,10 @@
 
 A full-stack music management application featuring a robust **Django REST Framework** backend and a dynamic **Angular** frontend. This platform allows users to manage and stream their personal music library seamlessly.
 
+**Live Demo:** [Music Library on Vercel](https://music-library-black.vercel.app/)
+
+---
+
 ## ✨ Features
 
 * **Full-Stack Architecture:** Decoupled backend and frontend for better scalability.
