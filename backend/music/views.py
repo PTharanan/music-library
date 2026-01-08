@@ -45,7 +45,10 @@ class MusicDeleteView(generics.DestroyAPIView):
         # file path
         file_path = instance.File.path
         # delete file
-        if os.path.isfile(file_path):
-            os.remove(file_path)
+        if os.path.exists(file_path):
+            try:
+                os.remove(file_path)
+            except PermissionError:
+                print(f"Error: {file_path} is currently in use and could not be deleted.")
         # DB record delete
         instance.delete()
